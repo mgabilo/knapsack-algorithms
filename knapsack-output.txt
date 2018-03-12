@@ -1,0 +1,76 @@
+#1) Optimal greedy solution for fractional knapsack
+
+1. items are sorted by value-to-weight ratios as below
+2. pick items until the current item's weight exceeds weight_capacity
+3. for the last item, only pick portion (weight_capacity - weight_current) / weight(item)
+
+https://en.wikipedia.org/wiki/Continuous_knapsack_problem
+
+*** KNAPSACK CONTENTS (REUSED FOR THE OTHER VARIANTS) ***
+weight_capacity = 166
+(val  wt  val/wt)
+(20   10   2.00)
+(30   30   1.00)
+(25   30   0.83)
+(15   20   0.75)
+(10   15   0.67)
+(20   35   0.57)
+(5    10   0.50)
+(20   50   0.40)
+(15   45   0.33)
+(10   35   0.29)
+
+*** GREEDY-KNAPSACK EXECUTION ***
+added item with (value, weight) = (20, 10)
+added item with (value, weight) = (30, 30)
+added item with (value, weight) = (25, 30)
+added item with (value, weight) = (15, 20)
+added item with (value, weight) = (10, 15)
+added item with (value, weight) = (20, 35)
+added item with (value, weight) = (5, 10)
+added PORTION 0.32 of item with (value, weight) = (20, 50), contributing only (6.4, 16.00)
+current weight of knapsack is 166 (full)
+current value of knapsack is 131.4
+
+------------------------------
+
+#2) recursive top-down discrete 0-1 knapsack with no optimization
+
+https://en.wikipedia.org/wiki/Knapsack_problem#Definition
+
+final items in knapsack = [[20, 50], [25, 30], [30, 30], [15, 20], [10, 15], [5, 10], [20, 10]]
+number of items taken = 7
+value = 125
+weight = 165
+number of recursive calls = 962
+
+------------------------------
+
+#3) dynamic programming solution to discrete 0-1 knapsack
+
+https://en.wikipedia.org/wiki/Knapsack_problem#0/1_knapsack_problem
+
+max value = 125
+number of iterations = (weight_capacity+1) * len(items) = 1670
+the number of columns in the table is weight_capacity+1, since it goes from 0 through weight_capacity
+this also allows for items with weights in the range [0, weight_capacity]
+
+tracing solution from table
+took item with (value, weight) = (20, 10)
+took item with (value, weight) = (5, 10)
+took item with (value, weight) = (10, 15)
+took item with (value, weight) = (15, 20)
+took item with (value, weight) = (30, 30)
+took item with (value, weight) = (25, 30)
+took item with (value, weight) = (20, 50)
+value = 125
+weight = 165
+
+------------------------------
+
+#4) recursive top-down 0-1 discrete knapsack with memoization
+
+number of recursive calls = 155
+final items in knapsack = [[20, 50], [25, 30], [30, 30], [15, 20], [10, 15], [5, 10], [20, 10]]
+value = 125
+weight = 165
